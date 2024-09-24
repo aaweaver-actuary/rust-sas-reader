@@ -4,5 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+chrono = "0.4.38"
 datetime = "0.5.2"
 derive_builder = "0.20.1"
+num = "0.4.3"
