@@ -137,3 +137,13 @@ pub enum ReadStatIoFlags {
     SeekCurrent,
     SeekEnd,
 }
+
+// enum {
+// READSTAT_VENDOR_STAT_TRANSFER,
+// READSTAT_VENDOR_SAS
+// };
+#[derive(Debug, PartialEq, Clone)]
+pub enum ReadStatVendor {
+    StatTransfer,
+    Sas,
+}

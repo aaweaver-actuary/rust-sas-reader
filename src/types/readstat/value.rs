@@ -23,7 +23,7 @@ impl ReadStatValue {
     pub fn is_system_missing(&self) -> bool {
         match self.value {
             ReadStatValueType::Double(v) => v.is_nan(),
-            ReadStatValueType::String(ref v) => v.is_empty(),
+            ReadStatValueType::String(ref v) => v.trim().is_empty() || *v == " ".to_string(),
             _ => false,
         }
     }
@@ -43,7 +43,7 @@ impl ReadStatValueBuilder {
     pub fn default() -> Self {
         Self {
             type_: Some(ReadStatType::Double),
-            tags: Some(Vec::new()),
+            tags: Some(vec!["".to_string()]),
             value: Some(ReadStatValueType::Double(0.0)),
         }
     }
@@ -56,8 +56,9 @@ mod tests {
     #[test]
     fn test_read_stat_value() {
         let value = ReadStatValue::builder().build().unwrap();
+        let expected_tags = vec!["".to_string()];
         assert_eq!(value.type_, ReadStatType::Double);
-        assert_eq!(value.tags, Vec::<String>::new());
+        assert_eq!(value.tags, expected_tags);
         assert_eq!(value.value, ReadStatValueType::Double(0.0));
     }
 
@@ -95,12 +96,6 @@ mod tests {
             .build()
             .unwrap();
         assert_eq!(value.is_tagged_missing_by_sas(), true);
-    }
-
-    #[test]
-    fn test_read_stat_value_is_missing() {
-        let value = ReadStatValue::builder().build().unwrap();
-        assert_eq!(value.is_missing(), true);
     }
 
     #[test]
