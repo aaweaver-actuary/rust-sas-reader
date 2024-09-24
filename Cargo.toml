@@ -1,0 +1,8 @@
+[package]
+name = "rust-sas"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+datetime = "0.5.2"
+derive_builder = "0.20.1"
